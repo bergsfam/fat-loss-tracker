@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Progress Log</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Progress Log</h1>
+  <input type="date" id="logDate"><br><br>
+  <input type="number" id="weight" placeholder="Weight (lbs)"><br><br>
+  <textarea id="notes" placeholder="How did you feel today?" rows="4"></textarea><br><br>
+  <button onclick="saveProgress()">Save</button>
+  <p id="saveMsg"></p>
+  <a href="index.html">Back to Home</a>
+
+  <script>
+    function saveProgress() {
+      const date = document.getElementById('logDate').value;
+      const weight = document.getElementById('weight').value;
+      const notes = document.getElementById('notes').value;
+      const entry = { date, weight, notes };
+      localStorage.setItem(`log_${date}`, JSON.stringify(entry));
+      document.getElementById('saveMsg').innerText = "Progress saved!";
+    }
+  </script>
+</body>
+</html>
