@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Fat Loss Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to My Fat Loss Tracker</h1>
+    <p>Your goal: Lose fat, feel strong, and stay consistent.</p>
+    <div id="quoteBox" class="quote"></div>
+    <nav>
+      <a href="habits.html">Habit Tracker</a> |
+      <a href="recipes.html">Recipes</a> |
+      <a href="progress.html">Progress</a> |
+      <a href="photos.html">Photo Log</a> |
+      <a href="mealplanner.html">Meal Planner</a>
+    </nav>
+  </div>
+  <script>
+    const quotes = [
+      "Progress, not perfection.",
+      "Small steps every day lead to big changes.",
+      "You don’t have to be extreme, just consistent.",
+      "Discipline is choosing what you want most over what you want now.",
+      "Your future self will thank you.",
+      "You’re doing better than you think."
+    ];
+    function showQuote() {
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quoteBox").textContent = quote;
+    }
+    showQuote();
+  </script>
+</body>
+</html>
