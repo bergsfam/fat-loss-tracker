@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meal Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Weekly Meal Planner</h1>
+    <div id="planner"></div>
+    <button onclick="saveMeals()">Save Meal Plan</button>
+    <p id="saveMsg"></p>
+    <h2>Shopping List</h2>
+    <ul id="shoppingList"></ul>
+    <a href="index.html">Back to Home</a>
+  </div>
+
+  <script>
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const meals = ["Breakfast", "Lunch", "Dinner"];
+    const sampleIngredients = {
+      "Protein Oatmeal": ["Oats", "Protein Powder", "Almond Milk"],
+      "Egg Scramble": ["Eggs", "Spinach", "Bell Peppers"],
+      "Grilled Chicken Salad": ["Chicken", "Lettuce", "Tomatoes"],
+      "Tuna Wrap": ["Tuna", "Wrap", "Spinach"],
+      "Greek Yogurt Bowl": ["Greek Yogurt", "Berries", "Chia Seeds"],
+      "Stir Fry": ["Chicken", "Broccoli", "Soy Sauce"]
+    };
+
+    function createPlanner() {
+      const container = document.getElementById("planner");
+      days.forEach(day => {
+        const row = document.createElement("div");
+        row.innerHTML = `<strong>${day}</strong><br>`;
+        meals.forEach(meal => {
+          const input = document.createElement("input");
+          input.placeholder = `${meal}`;
+          input.id = `${day}_${meal}`;
+          row.appendChild(input);
+        });
+        container.appendChild(row);
+        container.appendChild(document.createElement("hr"));
+      });
+    }
+
+    function saveMeals() {
+      const ingredients = new Set();
+      days.forEach(day => {
+        meals.forEach(meal => {
+          const id = `${day}_${meal}`;
+          const value = document.getElementById(id).value;
+          localStorage.setItem(id, value);
+          if (sampleIngredients[value]) {
+            sampleIngredients[value].forEach(item => ingredients.add(item));
+          }
+        });
+      });
+      document.getElementById("saveMsg").textContent = "Meal plan saved!";
+      displayShoppingList(Array.from(ingredients));
+    }
+
+    function displayShoppingList(items) {
+      const list = document.getElementById("shoppingList");
+      list.innerHTML = "";
+      items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+      });
+    }
+
+    function loadMeals() {
+      days.forEach(day => {
+        meals.forEach(meal => {
+          const id = `${day}_${meal}`;
+          const saved = localStorage.getItem(id);
+          if (saved) document.getElementById(id).value = saved;
+        });
+      });
+    }
+
+    createPlanner();
+    loadMeals();
+    saveMeals();  // Generate initial list
+  </script>
+</body>
+</html>
