@@ -1,0 +1,13 @@
+{
+  "name": "Fat Loss Tracker",
+  "short_name": "FatTracker",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fff6f0",
+  "theme_color": "#f77f00",
+  "icons": [{
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/OOjs_UI_icon_heart-ltr.svg/1024px-OOjs_UI_icon_heart-ltr.svg.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }]
+}
