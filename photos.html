@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weekly Photo Log</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Weekly Progress Photo Log</h1>
+    <input type="file" id="photoInput" accept="image/*">
+    <button onclick="savePhoto()">Save Photo</button>
+    <p id="saveMsg"></p>
+    <h2>Your Progress Gallery</h2>
+    <div id="photoGallery" class="gallery"></div>
+    <a href="index.html">Back to Home</a>
+  </div>
+
+  <script>
+    function savePhoto() {
+      const file = document.getElementById("photoInput").files[0];
+      if (!file) return alert("Please select a photo first.");
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imgData = e.target.result;
+        const id = `photo_${Date.now()}`;
+        localStorage.setItem(id, imgData);
+        document.getElementById("saveMsg").textContent = "Photo saved!";
+        displayPhotos();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function displayPhotos() {
+      const gallery = document.getElementById("photoGallery");
+      gallery.innerHTML = "";
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith("photo_")) {
+          const img = document.createElement("img");
+          img.src = localStorage.getItem(key);
+          img.classList.add("thumb");
+          gallery.appendChild(img);
+        }
+      });
+    }
+
+    displayPhotos();
+  </script>
+</body>
+</html>
